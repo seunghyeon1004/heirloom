@@ -1,0 +1,175 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Heirloom deck</title>
+<link rel="stylesheet" href="https://api.fontshare.com/v2/css?f[]=general-sans@400,500,600&display=swap">
+<style>
+:root {
+  --paper: oklch(97% 0.006 55); --paper-2: oklch(94.5% 0.007 55); --desk: oklch(94.3% 0.008 64); --cotton: oklch(98.8% 0.0045 80);
+  --ink: oklch(21% 0.012 38); --ink-2: oklch(29% 0.013 40); --muted: oklch(47% 0.013 45); --rule: oklch(87% 0.009 55);
+  --accent: oklch(74% 0.125 30); --accent-2: oklch(54% 0.165 29); --paid: oklch(55.5% 0.15 33); --board: oklch(22% 0.011 40); --board-type: oklch(96.5% 0.006 70);
+  --shade: 32% 0.03 50; --lit: 100% 0.005 80;
+  --edge: inset 0 1px 0 oklch(var(--lit) / 0.9), 0 0 0 0.5px oklch(var(--shade) / 0.22), 0 1px 0 oklch(var(--shade) / 0.12), 10px 9px 18px -10px oklch(var(--shade) / 0.35);
+  --sans: "General Sans", ui-sans-serif, system-ui, sans-serif; --mono: ui-monospace, "SF Mono", Menlo, monospace;
+}
+@page { size: 1600px 900px; margin: 0; }
+* { box-sizing: border-box; }
+html, body { margin: 0; overflow-x: clip; background: var(--desk); color: var(--ink); font-family: var(--sans); }
+.slide { width: 1600px; height: 900px; padding: 88px 104px; position: relative; page-break-after: always; break-after: page; background: var(--desk); overflow: hidden; display: flex; flex-direction: column; }
+.slide.board { background: var(--board); color: var(--board-type); }
+h1 { font-size: 96px; font-weight: 600; letter-spacing: -0.035em; line-height: 1; margin: 0; }
+h2 { font-size: 60px; font-weight: 600; letter-spacing: -0.03em; line-height: 1.05; margin: 0 0 40px; max-width: 22ch; }
+p, li { font-size: 28px; line-height: 1.4; }
+p { margin: 0; max-width: 46ch; }
+.muted { color: var(--muted); }
+.board .muted { color: oklch(78% 0.01 60); }
+.num { position: absolute; right: 104px; bottom: 56px; font-size: 20px; color: var(--muted); font-family: var(--mono); }
+.grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 56px; align-items: start; flex: 1; }
+.grid-3 { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 32px; }
+.sheet { background: var(--cotton); border-radius: 10px; box-shadow: var(--edge); padding: 36px; }
+.sheet h3 { font-size: 30px; margin: 0 0 12px; font-weight: 600; letter-spacing: -0.02em; }
+.sheet p { font-size: 23px; }
+.shot { width: 100%; border-radius: 10px; box-shadow: var(--edge); display: block; }
+ul { margin: 0; padding-left: 1.1em; }
+li { margin-bottom: 14px; max-width: 40ch; }
+code, .mono { font-family: var(--mono); font-size: 0.85em; }
+.seal { display: inline-block; transform: rotate(-5deg); color: var(--paid); border: 3px solid var(--paid); border-radius: 8px; padding: 4px 18px; font-weight: 600; font-size: 40px; }
+.flow { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 18px; margin-top: 8px; }
+.step { background: var(--cotton); border-radius: 10px; box-shadow: var(--edge); padding: 24px; min-height: 230px; }
+.step b { display: block; font-size: 26px; margin-bottom: 10px; }
+.step span { font-size: 21px; line-height: 1.35; color: var(--ink-2); display: block; }
+.step i { font-style: normal; font-family: var(--mono); font-size: 17px; color: var(--accent-2); display: block; margin-top: 12px; }
+table { border-collapse: collapse; width: 100%; font-size: 22px; }
+td { padding: 12px 10px 12px 0; border-bottom: 1px solid var(--rule); vertical-align: top; }
+td:first-child { font-weight: 500; width: 34%; }
+.pda { font-family: var(--mono); font-size: 20px; line-height: 1.55; white-space: pre; background: var(--cotton); border-radius: 10px; box-shadow: var(--edge); padding: 32px; }
+.big { font-size: 34px; }
+</style>
+</head>
+<body>
+
+<section class="slide board">
+  <div style="flex:1; display:flex; flex-direction:column; justify-content:center; gap:36px;">
+    <h1>Heirloom</h1>
+    <p class="big" style="max-width:34ch;">A dead-man’s switch for your crypto. Check in with Claude. If you go silent, your heirs claim on Solana.</p>
+    <p class="muted">MLH Solana Hackathon, November 2026 · Seunghyeon Baek · devnet prototype</p>
+  </div>
+</section>
+
+<section class="slide">
+  <h2>Self-custody has no plan for the day you are gone</h2>
+  <div class="grid">
+    <ul>
+      <li>Keys die with their owner. Families often do not know the coins exist or where the keys are kept.</li>
+      <li>A paper will cannot sign a transaction.</li>
+      <li>Handing keys to a custodian brings back the trust problem self-custody was meant to solve.</li>
+    </ul>
+    <div class="sheet">
+      <h3>What people need</h3>
+      <p>Full control while alive. A fair, automatic handover when they stop showing up. Plain words for heirs who are not crypto people.</p>
+    </div>
+  </div>
+  <span class="num">2</span>
+</section>
+
+<section class="slide">
+  <h2>A vault that waits for your check-in</h2>
+  <div class="grid">
+    <div style="display:grid; gap:28px;">
+      <p>Lock SOL in a program-owned vault. Name up to five heirs and their shares. Choose how often you check in and how long the grace period is.</p>
+      <p>Miss your check-ins and, after the grace period, each heir can claim their share once. A guardian can delay the unlock but never touch the funds.</p>
+    </div>
+    <img class="shot" src="img/dashboard.png" alt="Heirloom dashboard: countdown, heirs ledger and Claude check-in">
+  </div>
+  <span class="num">3</span>
+</section>
+
+<section class="slide">
+  <h2>Demo flow</h2>
+  <div class="flow">
+    <div class="step"><b>1. Create</b><span>Owner names Heir A 60% and Heir B 40%, sets a 90 s check-in and 30 s grace, and locks SOL.</span><i>initialize + deposit</i></div>
+    <div class="step"><b>2. Check in</b><span>Claude asks how they are. The owner replies and signs. The timer restarts.</span><i>heartbeat</i></div>
+    <div class="step"><b>3. Guide</b><span>Rough notes become a handoff guide. Only its SHA-256 goes on-chain.</span><i>set_guide_hash</i></div>
+    <div class="step"><b>4. Silence</b><span>No check-in. The countdown passes due, then grace. The vault unlocks.</span><i>Clock sysvar</i></div>
+    <div class="step"><b>5. Claim</b><span>Each heir reviews with Claude and claims once. The guide unlocks, verified against the hash.</span><i>claim × 2</i></div>
+  </div>
+  <p class="muted" style="margin-top:36px;">Four demo wallets live in the browser, so anyone can play every role without installing a wallet.</p>
+  <span class="num">4</span>
+</section>
+
+<section class="slide">
+  <h2>Architecture</h2>
+  <div class="grid">
+    <div class="pda">seeds   = ["vault", owner]
+program = 2GvFQtnM7cGa…ZbQbKv
+size    = 371 bytes
+
+Vault {
+  owner, heartbeat_authority,
+  guardian: Option&lt;Pubkey&gt;,
+  heirs: [{ key, share_bps }] ≤ 5,
+  checkin_interval, grace_period,
+  last_heartbeat, paused_until,
+  pauses_used, status,
+  claimed_bitmap, claim_snapshot,
+  guide_hash: [u8; 32], bump
+}
+lamports = rent minimum + protected SOL</div>
+    <table>
+      <tr><td>Program</td><td>Anchor 1.2.1, Rust: 9 instructions, PDA holds lamports</td></tr>
+      <tr><td>Client</td><td>Codama-generated @solana/kit 8 client from the IDL</td></tr>
+      <tr><td>App</td><td>Next.js 16: simulate, then explain, then sign, then confirm</td></tr>
+      <tr><td>AI</td><td>Server route handlers calling Claude (claude-sonnet-5-5); the server reads vault facts from chain</td></tr>
+      <tr><td>Tests</td><td>18 LiteSVM tests + Surfpool end-to-end with time travel</td></tr>
+    </table>
+  </div>
+  <span class="num">5</span>
+</section>
+
+<section class="slide">
+  <h2>Security model</h2>
+  <div class="grid-3">
+    <div class="sheet"><h3>Who can do what</h3><p>The owner’s vault PDA is derived from the signer’s key with has_one checks. The relay can only send heartbeats. The guardian can only pause. Heirs can only claim.</p></div>
+    <div class="sheet"><h3>Fair claims</h3><p>The first claim freezes the pot. A bitmap blocks double claims and is set before lamports move. The last heir sweeps the dust. The vault never goes below its rent minimum.</p></div>
+    <div class="sheet"><h3>Bounded delay</h3><p>Each guardian pause lasts at most 30 days, with at most 3 pauses per check-in period. Owner actions revive the vault only before the first claim.</p></div>
+  </div>
+  <p class="muted" style="margin-top:36px;">Tested: exact unlock boundary, double claim, wrong signers, a fake vault owned by another program, stray lamports, five heirs in any order.</p>
+  <span class="num">6</span>
+</section>
+
+<section class="slide">
+  <h2>Claude’s role, with no keys</h2>
+  <div class="grid">
+    <ul>
+      <li><b>Check-in companion.</b> It writes the nudge from the vault’s real on-chain phase and responds with care when something is wrong.</li>
+      <li><b>Explains before you sign.</b> It reads the simulation and the vault state and says in plain words what moves, to whom, and when to stop.</li>
+      <li><b>Handoff guide writer.</b> It turns rough notes into steps for heirs and refuses seed phrases.</li>
+    </ul>
+    <img class="shot" src="img/review.png" alt="Review card: simulation result and Claude explanation before signing">
+  </div>
+  <p class="muted" style="margin-top:12px;">Only a wallet signature changes state. The API key stays on the server.</p>
+  <span class="num">7</span>
+</section>
+
+<section class="slide board">
+  <h2 style="color:var(--board-type)">Roadmap and team</h2>
+  <div class="grid">
+    <ul>
+      <li>Wallet Standard connection (Phantom, Solflare, Backpack)</li>
+      <li>USDC and other SPL tokens held by the vault PDA</li>
+      <li>Hosted relay: email and Telegram check-ins, with signed messages triggering a relay heartbeat</li>
+      <li>Guides encrypted to heirs, released after a claim</li>
+      <li>Multisig guardians and legal wrappers. Heirloom is not a will.</li>
+    </ul>
+    <div>
+      <p class="big">Seunghyeon Baek</p>
+      <p class="muted" style="margin-top:12px;">Solo builder from South Korea, building in public.</p>
+      <p style="margin-top:40px;" class="mono">github.com/seunghyeon1004/heirloom</p>
+    </div>
+  </div>
+  <span class="num">8</span>
+</section>
+
+</body>
+</html>

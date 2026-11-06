@@ -370,7 +370,7 @@ function Deed({
     grace: 'Check-in overdue',
     claimable: 'Unlocked for heirs',
     claiming: 'Heirs are claiming',
-    settled: 'Settled',
+    settled: 'Closed',
   };
   const label =
     view.phase === 'active'
@@ -484,7 +484,7 @@ function OwnerPanel(props: PanelProps & { personas: Personas; loading: boolean; 
       <Funds {...props} snap={snap} view={view} />
       <GuideComposer {...props} snap={snap} />
       {view.phase !== 'active' && view.phase !== 'grace' && view.phase !== 'claimable' && (
-        <p className="notice">Heirs have started claiming. The owner can no longer change or withdraw from this vault.</p>
+        <p className="notice">Heirs have started claiming, so the owner can no longer change or withdraw from this vault. To run the demo again, reset the demo wallets below.</p>
       )}
     </>
   );
