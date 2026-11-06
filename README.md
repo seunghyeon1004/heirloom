@@ -97,7 +97,7 @@ Requirements: Rust (the toolchain is pinned in `rust-toolchain.toml`), Solana CL
 
 ```bash
 # program + 18 LiteSVM tests
-NO_DNA=1 anchor test
+NO_DNA=1 anchor test --skip-deploy   # Anchor.toml targets devnet; --skip-deploy keeps tests local
 
 # end-to-end test through the generated Kit client on an embedded Surfpool surfnet
 cd app && npm install && npm run test:surfpool
