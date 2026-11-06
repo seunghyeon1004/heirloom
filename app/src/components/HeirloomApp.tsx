@@ -392,8 +392,11 @@ function Deed({
     claiming: 'Heirs are claiming',
     settled: 'Closed',
   };
-  const label =
-    view.phase === 'active'
+  const timerUnlock = view.dueAt + Number(d.gracePeriodSecs);
+  const guardianHold = (view.phase === 'active' || view.phase === 'grace') && view.pausedUntil > timerUnlock && now >= view.dueAt;
+  const label = guardianHold
+    ? 'until heirs could claim. The guardian delayed the unlock; one check-in from the owner clears it.'
+    : view.phase === 'active'
       ? `until heirs could claim. Next check-in due in ${human(Math.max(0, view.dueAt - now))}.`
       : view.phase === 'grace'
         ? 'left in the grace period. One check-in from the owner seals it again.'
@@ -407,7 +410,7 @@ function Deed({
     <section className="sheet deed" aria-label="Vault">
       {(view.phase === 'settled' || view.phase === 'claiming') && <span className="seal">{view.phase === 'settled' ? 'Settled' : 'Claiming'}</span>}
       <span className="status" data-phase={view.phase}>
-        {phaseText[view.phase]}
+        {guardianHold ? 'Paused by guardian' : phaseText[view.phase]}
       </span>
       <p className="count" aria-live="off">
         {view.phase === 'active' || view.phase === 'grace' ? clock(view.secondsToUnlock) : `${formatSol(view.phase === 'claiming' || view.phase === 'settled' ? d.claimSnapshot : view.pot)} SOL`}
@@ -415,13 +418,13 @@ function Deed({
       <p className="count-label">{label}</p>
       {(view.phase === 'active' || view.phase === 'grace') && (
         <>
+          <div className="rail-top"><span className="due" style={{ left: `${dueAt * 100}%` }}>Check-in due</span></div>
           <div className="rail" role="progressbar" aria-valuemin={0} aria-valuemax={100} aria-valuenow={Math.round(progress * 100)} aria-label="Time elapsed toward unlock">
             <span data-phase={view.phase} style={{ transform: `scaleX(${progress})` }} />
             <i className="due-mark" style={{ left: `${dueAt * 100}%` }} />
           </div>
           <div className="rail-legend">
             <span>Last check-in</span>
-            <span className="due" style={{ left: `${dueAt * 100}%` }}>Check-in due</span>
             <span>Heirs may claim</span>
           </div>
         </>

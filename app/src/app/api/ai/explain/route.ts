@@ -44,7 +44,7 @@ export async function POST(req: Request) {
 
   const tx: Record<string, unknown> = {
     action,
-    cluster: 'Solana devnet (test SOL, no real value)',
+    cluster: `Solana ${process.env.NEXT_PUBLIC_CLUSTER_LABEL ?? 'devnet'} (test SOL, no real value)`,
     signer: short(signer),
     signer_role:
       signer === owner

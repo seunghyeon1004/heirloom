@@ -52,14 +52,15 @@ body { background: var(--color-desk); min-height: 100dvh; }
 .deed { padding: var(--space-xl); }
 .deed .count { font-family: var(--font-outlier); font-variant-numeric: tabular-nums; font-size: clamp(3rem, 9vw, 5.5rem); line-height: 0.95; letter-spacing: -0.04em; margin: var(--space-md) 0 var(--space-xs); }
 .deed .count-label { font-size: var(--text-md); color: var(--color-ink-2); max-width: 46ch; }
-.rail { position: relative; height: 10px; border-radius: var(--radius-pill); background: var(--color-paper-2); box-shadow: var(--press-groove); overflow: hidden; margin: var(--space-lg) 0 var(--space-xs); }
+.rail { position: relative; height: 10px; border-radius: var(--radius-pill); background: var(--color-paper-2); box-shadow: var(--press-groove); overflow: hidden; margin: var(--space-2xs) 0 var(--space-xs); }
+.rail-top { position: relative; height: 1.5em; margin-top: var(--space-lg); font-size: var(--text-sm); color: var(--color-muted); }
+.rail-top .due { position: absolute; top: 0; transform: translateX(-50%); white-space: nowrap; }
 .rail span { position: absolute; inset: 0; transform-origin: left center; background: var(--color-ink); border-radius: inherit; transition: transform var(--dur-long) var(--ease-out); }
 .rail span[data-phase="grace"] { background: var(--color-accent-2); }
 .rail-legend { position: relative; height: 1.5em; font-size: var(--text-sm); color: var(--color-muted); }
 .rail-legend span { position: absolute; top: 0; white-space: nowrap; }
 .rail-legend span:first-child { left: 0; }
 .rail-legend span:last-child { right: 0; }
-.rail-legend .due { transform: translateX(-50%); }
 .rail .due-mark { position: absolute; top: 0; bottom: 0; width: 2px; background: var(--color-cotton); z-index: var(--z-raised); }
 
 .status { display: inline-flex; align-items: center; min-height: 28px; padding: 0 var(--space-sm); border: 1px solid var(--color-ink-2); border-radius: var(--radius-pill); font-size: var(--text-sm); font-weight: 500; color: var(--color-ink); }
