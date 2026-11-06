@@ -23,6 +23,10 @@ import {
   LAMPORTS_PER_SOL,
 } from '@/lib/heirloom';
 import { Review, type PendingTx } from './Review';
+import { walletClient } from '@/lib/wallet';
+import { useConnectedWallet } from '@solana/kit-plugin-wallet/react';
+import { WalletConnect } from './WalletConnect';
+import type { TransactionSigner } from '@solana/kit';
 
 type Personas = Record<PersonaId, KeyPairSigner>;
 type Loaded = { snap: VaultSnapshot | null; rentMin: bigint; now: number; fetchedAt: number };
@@ -76,7 +80,9 @@ function writeGuide(vault: string, text: string) {
 
 export default function HeirloomApp() {
   const [personas, setPersonas] = useState<Personas | null>(null);
-  const [who, setWho] = useState<PersonaId>('owner');
+  const [who, setWho] = useState<PersonaId | 'wallet'>('owner');
+  const connected = useConnectedWallet(walletClient);
+  const walletSigner = (connected?.signer ?? null) as TransactionSigner | null;
   const [ownerInput, setOwnerInput] = useState('');
   const [data, setData] = useState<Loaded | null>(null);
   const [loadErr, setLoadErr] = useState<string | null>(null);
@@ -96,13 +102,15 @@ export default function HeirloomApp() {
     }
   }, []);
 
-  const me = personas?.[who];
+  const me: TransactionSigner | null | undefined = who === 'wallet' ? walletSigner : personas?.[who];
+  const isOwnerRole = who === 'owner' || who === 'wallet';
   const ownerAddr: Address | null = useMemo(() => {
     if (!personas) return null;
     if (who === 'owner') return personas.owner.address;
+    if (who === 'wallet') return walletSigner?.address ?? null;
     if (ownerInput && isAddress(ownerInput)) return ownerInput as Address;
     return personas.owner.address;
-  }, [personas, who, ownerInput]);
+  }, [personas, who, ownerInput, walletSigner]);
 
   const refresh = useCallback(async () => {
     if (!ownerAddr || !personas) return;
@@ -112,14 +120,16 @@ export default function HeirloomApp() {
       setData({ snap, rentMin, now, fetchedAt: Date.now() });
       setLoadErr(null);
       const bals = await Promise.all(PERSONAS.map((p) => rpc.getBalance(personas[p.id].address, { commitment: 'confirmed' }).send()));
-      setBalances(Object.fromEntries(PERSONAS.map((p, i) => [p.id, bals[i].value])));
+      const b: Record<string, bigint> = Object.fromEntries(PERSONAS.map((p, i) => [p.id, bals[i].value]));
+      if (walletSigner) b.wallet = (await rpc.getBalance(walletSigner.address, { commitment: 'confirmed' }).send()).value;
+      setBalances(b);
       const vaddr = await vaultAddress(ownerAddr);
       const sigs = await rpc.getSignaturesForAddress(vaddr, { limit: 8, commitment: 'confirmed' }).send();
       setActivity(sigs.map((s) => ({ sig: s.signature, time: s.blockTime != null ? Number(s.blockTime) : null, ok: !s.err })));
     } catch (e) {
       setLoadErr((e as Error).message);
     }
-  }, [ownerAddr, personas]);
+  }, [ownerAddr, personas, walletSigner]);
 
   useEffect(() => {
     refresh();
@@ -160,6 +170,10 @@ export default function HeirloomApp() {
     setTimeout(refresh, 2500);
   }
 
+  useEffect(() => {
+    if (who === 'wallet' && !walletSigner) setWho('owner');
+  }, [who, walletSigner]);
+
   if (!personas || !me) {
     return (
       <main className="main">
@@ -193,6 +207,11 @@ export default function HeirloomApp() {
                 {p.label}
               </button>
             ))}
+            {walletSigner && (
+              <button aria-pressed={who === 'wallet'} onClick={() => { setWho('wallet'); setPending(null); }} title="Your own wallet, acting as owner">
+                My wallet
+              </button>
+            )}
           </div>
           <div className="account">
             <a href={explorerAddress(me.address)} target="_blank" rel="noreferrer" className="mono">
@@ -202,6 +221,7 @@ export default function HeirloomApp() {
             <button className="btn-quiet btn" onClick={fund}>
               Add test SOL
             </button>
+            <WalletConnect />
           </div>
         </div>
       </header>
@@ -239,7 +259,7 @@ export default function HeirloomApp() {
         </div>
 
         <div className="stack">
-          {who !== 'owner' && (
+          {!isOwnerRole && (
             <section className="sheet">
               <label className="field">
                 Vault owner address
@@ -256,7 +276,7 @@ export default function HeirloomApp() {
               </p>
             </section>
           )}
-          {who === 'owner' && (
+          {isOwnerRole && (
             <OwnerPanel me={me} personas={personas} snap={data?.snap ?? null} view={view} loading={!data} pending={pending} setPending={setPending} done={done} balance={myBal} />
           )}
           {(who === 'heirA' || who === 'heirB') && ownerAddr && (
@@ -466,7 +486,7 @@ function Deed({
 // ---------------- owner ----------------
 
 type PanelProps = {
-  me: KeyPairSigner;
+  me: TransactionSigner;
   snap: VaultSnapshot | null;
   view: VaultView | null;
   pending: PendingTx | null;

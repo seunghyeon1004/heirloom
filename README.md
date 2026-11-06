@@ -127,7 +127,7 @@ Test coverage (`programs/heirloom/tests/vault.rs`): config storage; bad shares, 
 - Liveness is a heuristic. A missed check-in does not prove death, and the grace period, guardian pause and owner's power to revive (any owner action before the first claim) exist to limit false unlocks. The flip side is that an owner who can still sign can always stop the inheritance before the first claim.
 - Native SOL only. SPL tokens (for example USDC) are not supported yet.
 - One vault per owner (the PDA is keyed by the owner). A settled vault keeps its rent-exempt lamports. Closing settled vaults is not implemented.
-- The demo uses four throwaway keypairs kept in browser `localStorage`, so judges can play every role without installing a wallet. Real wallet connection through Wallet Standard is on the roadmap.
+- The demo uses four throwaway keypairs kept in browser `localStorage`, so judges can play every role without installing a wallet. A real Wallet Standard wallet (Phantom, Solflare and so on) can also connect and act as the owner ("Use my wallet"). That path is implemented, but it was not tested with a real extension: the test browser had none installed.
 - The handoff guide text is stored only in the browser in this prototype. The chain holds only its SHA-256. A production version would encrypt it to the heirs, store it off-chain, and release it after a claim.
 - The check-in is in-app chat. It does not send email or Telegram reminders yet, and there is no scheduled relay. The `heartbeat_authority` relay key is supported and tested on-chain, but the hosted relay is not wired up.
 - Rate limiting on the API routes is in-memory per server instance (best effort).

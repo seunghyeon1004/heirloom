@@ -2,6 +2,7 @@
 // Uses a legacy-compatible v0 message so any wallet and any RPC accepts it.
 import {
   appendTransactionMessageInstructions,
+  compileTransaction,
   createSolanaRpc,
   createTransactionMessage,
   getBase64EncodedWireTransaction,
@@ -20,15 +21,18 @@ import { RPC_URL } from './config';
 
 export const rpc = createSolanaRpc(RPC_URL);
 
-async function buildSigned(feePayer: TransactionSigner, ixs: Instruction[]) {
+async function buildMessage(feePayer: TransactionSigner, ixs: Instruction[]) {
   const { value: latestBlockhash } = await rpc.getLatestBlockhash({ commitment: 'confirmed' }).send();
-  const message = pipe(
+  return pipe(
     createTransactionMessage({ version: 0 }),
     (m) => setTransactionMessageFeePayerSigner(feePayer, m),
     (m) => setTransactionMessageLifetimeUsingBlockhash(latestBlockhash, m),
     (m) => appendTransactionMessageInstructions(ixs, m),
   );
-  return signTransactionMessageWithSigners(message);
+}
+
+async function buildSigned(feePayer: TransactionSigner, ixs: Instruction[]) {
+  return signTransactionMessageWithSigners(await buildMessage(feePayer, ixs));
 }
 
 export type Simulation = {
@@ -48,8 +52,9 @@ function anchorError(logs: string[]): string | null {
 }
 
 export async function simulate(feePayer: TransactionSigner, ixs: Instruction[]): Promise<Simulation> {
-  const signed = await buildSigned(feePayer, ixs);
-  const wire = getBase64EncodedWireTransaction(signed);
+  // Simulate the unsigned transaction so a browser wallet is never prompted before the user approves.
+  const unsigned = compileTransaction(await buildMessage(feePayer, ixs));
+  const wire = getBase64EncodedWireTransaction(unsigned);
   const res = await rpc
     .simulateTransaction(wire, { encoding: 'base64', sigVerify: false, replaceRecentBlockhash: true, commitment: 'confirmed' })
     .send();
