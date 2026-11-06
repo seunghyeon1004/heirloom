@@ -6,12 +6,17 @@ const eslintConfig = defineConfig([
   ...nextVitals,
   ...nextTs,
   // Override default ignores of eslint-config-next.
+  {
+    // The app intentionally syncs chain state into React state from effects and reads the clock for countdowns.
+    rules: { "react-hooks/set-state-in-effect": "warn", "react-hooks/purity": "warn" },
+  },
   globalIgnores([
     // Default ignores of eslint-config-next:
     ".next/**",
     "out/**",
     "build/**",
     "next-env.d.ts",
+    "src/generated/**",
   ]),
 ]);
 
