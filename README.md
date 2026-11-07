@@ -6,6 +6,8 @@ A dead-man's switch for crypto inheritance on Solana. You lock SOL in a program-
 
 - Program (devnet): `2GvFQtnM7cGaM9wso5iw6nMH5abo2aYKJRneZiWbQbKv` ([Explorer](https://explorer.solana.com/address/2GvFQtnM7cGaM9wso5iw6nMH5abo2aYKJRneZiWbQbKv?cluster=devnet))
 - Live demo: https://heirloom-nine-gray.vercel.app
+- Deploy tx (devnet): [2iynxBB…62o91](https://explorer.solana.com/tx/2iynxBBvwmCJz4pghus6bQo6vQbZqYMbw1NhgmHqnJk73oBH8WPUDY4VfcrGXoKhD4G9abeRkGJY4SwTTL562o91?cluster=devnet), IDL published on-chain
+- Example demo vault on devnet: [A943…6xxb](https://explorer.solana.com/address/A943ZDs8jAjxLx3NzgZWDVDU5u2LpwhLNCvAbfQp6xxb?cluster=devnet) (created, checked in, guide sealed, guardian pause, two claims)
 - Built for the MLH Solana Hackathon (Nov 6 to 8, 2026) by Seunghyeon Baek
 
 ## What it does
