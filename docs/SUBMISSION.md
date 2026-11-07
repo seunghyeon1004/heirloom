@@ -1,4 +1,12 @@
-# Heirloom: submission text (Devpost / Encode)
+# Heirloom: submission text (MLH Challenges / Encode)
+
+## Where and when (KST)
+- MLH: MLH Challenges form https://www.mlh.com/events/solana-hackathon/submissions/new (not Devpost). Initial submission Nov 9 00:00, final Nov 9 01:45 (target), form hard close Nov 9 03:00.
+  - Required: project link (live demo), description (below), screenshot (use the settled-vault capture c15 or the dashboard c03).
+  - Other links: repo, video, slides (docs/deck.pdf).
+  - Prize categories: Top 3 Overall + AI Track.
+  - AI coding tools disclosure (optional, fill it): Claude Code and Codex, model Claude Opus 5.5. The app itself calls Claude claude-sonnet-5-5 at runtime.
+- Encode: the project "Heirloom" already exists on the Encode platform. Fill the slots Description / Code / Slides / Live Demo / Demo Video before Nov 9 20:59 KST.
 
 ## Name
 Heirloom
@@ -51,6 +59,9 @@ Claude does three real jobs, and none of them can change state:
 ## Prior work disclosure
 All Heirloom code was written during the MLH event window, starting Nov 6, 2026 12:00 ET. It uses open-source libraries (Anchor, Solana Kit, Codama, Next.js, LiteSVM, Surfpool, the Anthropic SDK) and the `anchor init` and `create-next-app` scaffolds. For Encode: the project was started late in the programme, on Nov 6 to 8, and nothing existed beforehand.
 
+## Short description (for the MLH one-box field)
+Heirloom is a dead-man's switch for crypto inheritance on Solana. You lock SOL in a program-owned vault, name heirs with shares, and check in with Claude. If you stop, heirs claim on-chain after a grace period. Claude explains every transaction before you sign, but it holds no keys: only wallet signatures change state. It has an Anchor program with 18 security tests, a Codama/Kit client and a Next.js app, and runs on devnet.
+
 ## Links checklist
 - [ ] Public repo: https://github.com/seunghyeon1004/heirloom
 - [ ] Live demo (devnet): DEMO_URL
@@ -59,4 +70,7 @@ All Heirloom code was written during the MLH event window, starting Nov 6, 2026 
 - [ ] Deploy transaction: DEPLOY_TX
 - [ ] Demo video (YouTube, public, under 3 min): VIDEO_URL
 - [ ] Pitch deck: docs/deck.pdf
-- [ ] Tracks: MLH AI track, Top 3 overall
+- [ ] MLH prize categories: Top 3 Overall, AI Track
+- [ ] MLH AI tools disclosure: Claude Code + Codex (Claude Opus 5.5)
+- [ ] MLH screenshot uploaded
+- [ ] Encode slots: Description, Code, Slides, Live Demo, Demo Video
