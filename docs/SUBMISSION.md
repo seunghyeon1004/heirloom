@@ -68,7 +68,7 @@ Heirloom is a dead-man's switch for crypto inheritance on Solana. You lock SOL i
 - [ ] Program ID (devnet): 2GvFQtnM7cGaM9wso5iw6nMH5abo2aYKJRneZiWbQbKv
 - [ ] Program on Explorer: https://explorer.solana.com/address/2GvFQtnM7cGaM9wso5iw6nMH5abo2aYKJRneZiWbQbKv?cluster=devnet
 - [ ] Deploy transaction: https://explorer.solana.com/tx/2iynxBBvwmCJz4pghus6bQo6vQbZqYMbw1NhgmHqnJk73oBH8WPUDY4VfcrGXoKhD4G9abeRkGJY4SwTTL562o91?cluster=devnet
-- [ ] Demo video (YouTube, public, under 3 min): VIDEO_URL
+- [ ] Demo video (YouTube, public, under 3 min): https://youtu.be/LiBoJAFgH70
 - [ ] Pitch deck: docs/deck.pdf
 - [ ] MLH prize categories: Top 3 Overall, AI Track
 - [ ] MLH AI tools disclosure: Claude Code + Codex (Claude Opus 5.5)
