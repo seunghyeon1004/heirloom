@@ -64,7 +64,7 @@ Heirloom is a dead-man's switch for crypto inheritance on Solana. You lock SOL i
 
 ## Links checklist
 - [ ] Public repo: https://github.com/seunghyeon1004/heirloom
-- [ ] Live demo (devnet): DEMO_URL
+- [ ] Live demo (devnet): https://heirloom-nine-gray.vercel.app
 - [ ] Program ID (devnet): 2GvFQtnM7cGaM9wso5iw6nMH5abo2aYKJRneZiWbQbKv
 - [ ] Program on Explorer: https://explorer.solana.com/address/2GvFQtnM7cGaM9wso5iw6nMH5abo2aYKJRneZiWbQbKv?cluster=devnet
 - [ ] Deploy transaction: DEPLOY_TX

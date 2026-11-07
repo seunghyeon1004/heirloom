@@ -5,7 +5,7 @@ A dead-man's switch for crypto inheritance on Solana. You lock SOL in a program-
 > Prototype on Solana **devnet** with test SOL. Not a legal will, not financial advice.
 
 - Program (devnet): `2GvFQtnM7cGaM9wso5iw6nMH5abo2aYKJRneZiWbQbKv` ([Explorer](https://explorer.solana.com/address/2GvFQtnM7cGaM9wso5iw6nMH5abo2aYKJRneZiWbQbKv?cluster=devnet))
-- Live demo: DEMO_URL
+- Live demo: https://heirloom-nine-gray.vercel.app
 - Built for the MLH Solana Hackathon (Nov 6 to 8, 2026) by Seunghyeon Baek
 
 ## What it does
